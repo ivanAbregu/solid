@@ -88,17 +88,17 @@ class Payment:
     def __init__(self) -> None:
         self.id = Faker().pyint()
 
-    def pay(self, payment_type: str, card_number: str, order: OrderS):
-        if payment_type == PAYMENTS_TPYE.CREDIT:
-            order.set_paid(True)
-            print(
-                f"${order.get_amount()} paid order {self.id} with credit card {card_number}"
-            )
-        else:
-            order.set_paid(True)
-            print(
-                f"${order.get_amount()} paid order {self.id} with debit card {card_number}"
-            )
+    def pay_credit(self, card_number: str, order: OrderS):
+        order.set_paid(True)
+        print(
+            f"${order.get_amount()} paid order {self.id} with credit card {card_number}"
+        )
+
+    def pay_debit(self, card_number: str, order: OrderS):
+        order.set_paid(True)
+        print(
+            f"${order.get_amount()} paid order {self.id} with debit card {card_number}"
+        )
 
 
 def test_single_responsability_implementation():
@@ -111,7 +111,7 @@ def test_single_responsability_implementation():
 
     card_number = fake.pyint()
     payment = Payment()
-    payment.pay(PAYMENTS_TPYE.CREDIT, card_number, orders)
+    payment.pay_debit(card_number, orders)
     print(orders.get_detail())
 
 
